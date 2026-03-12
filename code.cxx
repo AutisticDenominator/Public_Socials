@@ -94,8 +94,73 @@ public:
         return Return_Array;
     }
 
-    string Facebook(string First_Name, string Last_Name){
+    array<string, 30> Facebook(string First_Name, string Last_Name){
+        array<string, 3> First_Name_Variations = Variations(First_Name);
+        array<string, 3> Last_Name_Variations = Variations(Last_Name);
+        array<string, 5> Conjunctions = {"", ".", "_", "-", "+"};
+        array<string, 30> Return_Array;
 
+        int index = 0;
+        string temp;
+
+        for(int i = 0; i < 3; i++){
+            for(int c = 0; c < 5; c++){
+                temp = First_Name_Variations[i] + Conjunctions[c] + Last_Name_Variations[i];
+
+                Return_Array[index * 2] = temp;
+                Return_Array[(index * 2) + 1] = Request("http://www.facebook.com", "/" + temp);
+
+                index = index + 1;
+            }
+        }
+
+        return Return_Array;
+    }
+
+    array<string, 30> LinkedIn(string First_Name, string Last_Name){
+        array<string, 3> First_Name_Variations = Variations(First_Name);
+        array<string, 3> Last_Name_Variations = Variations(Last_Name);
+        array<string, 5> Conjunctions = {"", ".", "_", "-", "+"};
+        array<string, 30> Return_Array;
+
+        int index = 0;
+        string temp;
+
+        for(int i = 0; i < 3; i++){
+            for(int c = 0; c < 5; c++){
+                temp = First_Name_Variations[i] + Conjunctions[c] + Last_Name_Variations[i];
+
+                Return_Array[index * 2] = temp;
+                Return_Array[(index * 2) + 1] = Request("http://www.linkedin.com", "/in/" + temp);
+
+                index = index + 1;
+            }
+        }
+
+        return Return_Array;
+    }
+
+    array<string, 30> Twitter(string First_Name, string Last_Name){
+        array<string, 3> First_Name_Variations = Variations(First_Name);
+        array<string, 3> Last_Name_Variations = Variations(Last_Name);
+        array<string, 5> Conjunctions = {"", ".", "_", "-", "+"};
+        array<string, 30> Return_Array;
+
+        int index = 0;
+        string temp;
+
+        for(int i = 0; i < 3; i++){
+            for(int c = 0; c < 5; c++){
+                temp = First_Name_Variations[i] + Conjunctions[c] + Last_Name_Variations[i];
+
+                Return_Array[index * 2] = temp;
+                Return_Array[(index * 2) + 1] = Request("http://www.x.com", "/" + temp);
+
+                index = index + 1;
+            }
+        }
+
+        return Return_Array;
     }
 };
 
