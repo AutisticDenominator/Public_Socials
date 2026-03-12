@@ -25,11 +25,77 @@ public:
     string Country;
 
     Results Result_List[256];
+    int length = 0;
 
     Persons(string First_Name, string Last_Name, string Country){
         this->First_Name = First_Name;
         this->Last_Name = Last_Name;
         this->Country = Country;
+    }
+};
+
+class Toolbox{
+public:
+    string Request(string Page_Url, string Internal_Url){
+
+        httplib::Client cli(Page_Url);
+
+        if(auto response = cli.Get(Internal_Url)){
+            if(response->status == httplib::StatusCode::OK_200){
+                return response->body;
+            }
+
+            return "ERROR";
+        }else{
+            return "ERROR";
+        }
+    }
+
+    array<string, 3> Variations(string Text){
+        array<string, 3> Variations;
+
+        Variations[0] = Text;
+
+        for(int i = 0; i < Text.length(); i++){
+            Text[i] = toupper(Text[i]);
+        }
+
+        Variations[1] = Text;
+
+        for(int i = 0; i < Text.length(); i++){
+            Text[i] = tolower(Text[i]);
+        }
+
+        Variations[2] = Text;
+
+        return Variations;
+    }
+
+    array<string, 30> Instagram(string First_Name, string Last_Name){
+        array<string, 3> First_Name_Variations = Variations(First_Name);
+        array<string, 3> Last_Name_Variations = Variations(Last_Name);
+        array<string, 5> Conjunctions = {"", ".", "_", "-", "+"};
+        array<string, 30> Return_Array;
+
+        int index = 0;
+        string temp;
+
+        for(int i = 0; i < 3; i++){
+            for(int c = 0; c < 5; c++){
+                temp = First_Name_Variations[i] + Conjunctions[c] + Last_Name_Variations[i];
+
+                Return_Array[index * 2] = temp;
+                Return_Array[(index * 2) + 1] = Request("http://www.instagram.com", "/" + temp);
+
+                index = index + 1;
+            }
+        }
+
+        return Return_Array;
+    }
+
+    string Facebook(string First_Name, string Last_Name){
+
     }
 };
 
