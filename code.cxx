@@ -221,6 +221,10 @@ public:
         }
     }
 
+    void Display_Persons(){
+
+    }
+
     void Console(){
         string input;
 
@@ -232,7 +236,7 @@ public:
         }else if(input == "help"){
             cout << "New_Person - create a new person\nhelp - help\nexit - exit\nDisplay_Persons - display already created persons\n";
         }else if(input == "Display_Persons"){
-
+            this ->Display_Persons();
         }
         else if(input == "exit"){
             return;
