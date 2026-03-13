@@ -24,9 +24,10 @@ public:
     string Last_Name;
     
     Results Result_List[256];
-    int length = 0;
+    int size = 0;
 
-    Persons(string First_Name, string Last_Name, string Country){
+    Persons() = default;
+    Persons(string First_Name, string Last_Name){
         this->First_Name = First_Name;
         this->Last_Name = Last_Name;
     }
@@ -162,19 +163,82 @@ public:
     }
 };
 
+Toolbox Tools;
+
 class Main_Loop{
 public:
+    Persons People[32];
+    int size = 0;
+
     array<string, 2> Input(){
         string First_Name;
         string Last_Name;
         
-
+ 
         cout << "\nEnter the person's first name: ";
         cin >> First_Name;
         cout << "\nEnter the person's last name: ";
         cin >> Last_Name;
 
         return {First_Name, Last_Name};
+    }
+
+    void Create_Person(){
+        array<string, 2> Names = this->Input();
+
+        Persons Person(Names[0], Names[1]);
+
+        this->People[this->size] = Person;
+        this->size = size + 1;
+
+        array<string, 30> Instagram_Array = Tools.Instagram(Names[0], Names[1]);
+        array<string, 30> Facebook_Array = Tools.Facebook(Names[0], Names[1]);
+        array<string, 30> LinkedIn_Array = Tools.LinkedIn(Names[0], Names[1]);
+        array<string, 30> Twitter_Array = Tools.Twitter(Names[0], Names[1]);
+
+        for(int i = 0; i < 30; i++){
+            Results Result(Instagram_Array[(i * 2) + 1], "http://www.instagram.com/" + Instagram_Array[(i * 2) + 1], Instagram_Array[i * 2]);
+            Person.Result_List[Person.size] = Result;
+            Person.size = Person.size + 1;
+        }
+
+        for(int i = 0; i < 30; i++){
+            Results Result(Facebook_Array[(i * 2) + 1], "http://www.facebook.com/" + Facebook_Array[(i * 2) + 1], Facebook_Array[i * 2]);
+            Person.Result_List[Person.size] = Result;
+            Person.size = Person.size + 1;
+        }
+
+        for(int i = 0; i < 30; i++){
+            Results Result(LinkedIn_Array[(i * 2) + 1], "http://www.linkedin.com/in/" + LinkedIn_Array[(i * 2) + 1], LinkedIn_Array[i * 2]);
+            Person.Result_List[Person.size] = Result;
+            Person.size = Person.size + 1;
+        }
+
+        for(int i = 0; i < 30; i++){
+            Results Result(Twitter_Array[(i * 2) + 1], "http://www.x.com/" + Twitter_Array[(i * 2) + 1], Twitter_Array[i * 2]);
+            Person.Result_List[Person.size] = Result;
+            Person.size = Person.size + 1;
+        }
+    }
+
+    void Console(){
+        string input;
+
+        cout << "\nEnter your command: ";
+        cin >> input;
+
+        if(input == "New_Person"){
+            this->Create_Person();
+        }else if(input == "help"){
+            cout << "New_Person - create a new person\nhelp - help\nexit - exit\nDisplay_Persons - display already created persons\n";
+        }else if(input == "Display_Persons"){
+
+        }
+        else if(input == "exit"){
+            return;
+        }else{
+            Console();
+        }
     }
 };
 
