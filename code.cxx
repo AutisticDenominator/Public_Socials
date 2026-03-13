@@ -22,15 +22,13 @@ class Persons{
 public:
     string First_Name;
     string Last_Name;
-    string Country;
-
+    
     Results Result_List[256];
     int length = 0;
 
     Persons(string First_Name, string Last_Name, string Country){
         this->First_Name = First_Name;
         this->Last_Name = Last_Name;
-        this->Country = Country;
     }
 };
 
@@ -161,6 +159,22 @@ public:
         }
 
         return Return_Array;
+    }
+};
+
+class Main_Loop{
+public:
+    array<string, 2> Input(){
+        string First_Name;
+        string Last_Name;
+        
+
+        cout << "\nEnter the person's first name: ";
+        cin >> First_Name;
+        cout << "\nEnter the person's last name: ";
+        cin >> Last_Name;
+
+        return {First_Name, Last_Name};
     }
 };
 
